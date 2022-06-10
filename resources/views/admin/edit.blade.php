@@ -24,6 +24,24 @@
             
           </select>
         </div>
+        <div class='d-flex justify-content-center mb-2'>
+          @foreach ($tags as $tag)
+          <div class="form-check  mx-3">
+  
+              <input class="form-check-input" type="checkbox" 
+              value="{{$tag->id}}" 
+              id="tag-{{$tag->id}}" 
+              name="tags[]"
+              @if(in_array($tag->id, old('tags', $post_tags_id))) checked @endif
+              >
+              <label class="form-check-label" for="tag-{{$tag->id}}">
+                  {{$tag->name}}
+              </label>
+  
+  
+          </div>
+          @endforeach
+      </div>
         <div class="input-group mb-3">
             <span class="input-group-text">Content</span>
             <textarea id="content" name="content" class="form-control" aria-label="With textarea" style="height: 200px">{{$post->content}}</textarea>
