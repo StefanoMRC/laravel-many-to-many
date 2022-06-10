@@ -31,7 +31,8 @@ class PostController extends Controller
     public function create()
     {
         $categories=Category::all();
-        return view('admin.create', compact('categories'));
+        $tags=Tag::all();
+        return view('admin.create', compact('categories', 'tags'));
     }
 
     /**
@@ -43,10 +44,14 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data=$request->all();
+        // dd($data);
         $post=new Post();
         $post->fill($data);
         $post->slug =Str::slug($post->title, '-');
         $post->save();
+
+        if (array_key_exists('tags', $data)) $post->tags()->attach($data['tags']);
+        
         return redirect()->route('admin.posts.show',$post);
     }
 
@@ -71,7 +76,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories=Category::all();
-        return view('admin.edit',compact('post'), compact('categories'));
+        $tags=Tag::all();
+        return view('admin.edit',compact('post'), compact('categories','tags'));
     }
 
     /**
