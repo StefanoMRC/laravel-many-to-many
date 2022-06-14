@@ -2,7 +2,7 @@
 @section('content')
 <div class="container d-flex justify-content-center py-5">
     <div class="card" style="width: 18rem;">
-        <img src="{{$post->image}}" class="card-img-top" alt="...">
+        <img src="{{asset("storage/$post->image")}}" class="card-img-top" alt="...">
         <div class="card-body">
           <h3 class="card-title">{{$post->title}}</h3>
           @if ($post->category)
